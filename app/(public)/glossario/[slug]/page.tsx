@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { buscarTermoPorSlug, incrementarViews } from '@/lib/glossario/queries'
 import { getConfig } from '@/lib/settings'
 import { notFound } from 'next/navigation'

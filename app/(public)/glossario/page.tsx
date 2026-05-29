@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { listarTermosPublicos } from '@/lib/glossario/queries'
 import { getConfig } from '@/lib/settings'
 import Link from 'next/link'
