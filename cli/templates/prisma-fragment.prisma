@@ -1,0 +1,52 @@
+
+// ════════════════════════════════════════════════════════════════════════════
+// 2time SEO — models (adicionados pelo instalador `npx 2time-seo init`)
+// ════════════════════════════════════════════════════════════════════════════
+
+model GlossaryTerm {
+  id        String         @id @default(cuid())
+  termo     String
+  slug      String         @unique
+  letra     String
+  nicho     String?
+  conteudo  String         @db.Text
+  resumo    String?
+  seoTitle  String?
+  imagem    String?
+  publicado Boolean        @default(false)
+  revisado  Boolean        @default(false)
+  views     Int            @default(0)
+  origem    GlossaryOrigem @default(MANUAL)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([letra, publicado])
+  @@index([createdAt])
+}
+
+enum GlossaryOrigem {
+  MANUAL
+  AI_GEMINI
+  AI_OPENAI
+  AI_ANTHROPIC
+  AI_OPENROUTER
+  AI_GROQ
+  AI_DEEPSEEK
+  CSV_IMPORT
+}
+
+model SeoIndexingLog {
+  id         String   @id @default(cuid())
+  url        String
+  action     String   @default("URL_UPDATED")
+  motor      String
+  status     String
+  statusCode Int?
+  erro       String?
+  origem     String?
+  createdAt  DateTime @default(now())
+
+  @@index([url])
+  @@index([createdAt])
+  @@index([motor, status])
+}

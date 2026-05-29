@@ -1,0 +1,19 @@
+{
+  "name": "2time-seo",
+  "version": "1.0.0",
+  "description": "Instalador do gerador de glossário SEO com IA — copia os módulos para qualquer projeto Next.js + Prisma",
+  "type": "module",
+  "bin": {
+    "2time-seo": "./bin/index.mjs"
+  },
+  "files": [
+    "bin",
+    "templates"
+  ],
+  "keywords": ["seo", "glossario", "ia", "nextjs", "prisma", "indexacao", "google", "bing"],
+  "author": "Vinícius Saldanha",
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": {
+    "node": ">=18"
+  }
+}
