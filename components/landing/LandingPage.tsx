@@ -264,19 +264,39 @@ function Comparativo() {
 
 // ── Pricing ───────────────────────────────────────────────────────────────────
 function Pricing() {
+  const [loading, setLoading] = useState<string | null>(null)
+
+  async function assinar(planoId: string) {
+    setLoading(planoId)
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plano: planoId }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error)
+      window.location.href = data.init_point
+    } catch (e) {
+      // Fallback: WhatsApp se o checkout falhar
+      window.open('https://wa.me/5519974049445?text=Tenho%20interesse%20no%202time%20SEO', '_blank')
+      setLoading(null)
+    }
+  }
+
   const planos = [
     {
-      nome: 'Starter', preco: '97', periodo: '/mês', destaque: false,
+      id: 'starter', nome: 'Starter', preco: '97', periodo: '/mês', destaque: false,
       desc: 'Para um site próprio',
       itens: ['1 site / domínio', 'Glossário ilimitado', 'Indexação Google + Bing', 'Multi-provider de IA', 'Suporte por e-mail'],
     },
     {
-      nome: 'Agência', preco: '297', periodo: '/mês', destaque: true,
+      id: 'agencia', nome: 'Agência', preco: '297', periodo: '/mês', destaque: true,
       desc: 'Para quem gerencia vários clientes',
       itens: ['Até 10 sites / domínios', 'Tudo do Starter', 'Instâncias separadas por cliente', 'Marca branca (white-label)', 'Suporte prioritário WhatsApp'],
     },
     {
-      nome: 'Licença', preco: '1.997', periodo: 'único', destaque: false,
+      id: 'licenca', nome: 'Licença', preco: '1.997', periodo: 'único', destaque: false,
       desc: 'Código-fonte para devs',
       itens: ['Código-fonte completo', 'Instale em projetos ilimitados', 'Atualizações por 1 ano', 'Instalador via CLI', 'Sem mensalidade'],
     },
@@ -315,14 +335,13 @@ function Pricing() {
                 </li>
               ))}
             </ul>
-            <a href="https://wa.me/5519974049445?text=Tenho%20interesse%20no%202time%20SEO"
-              target="_blank" rel="noopener noreferrer"
-              className="block text-center font-bold py-3 rounded-xl transition-all hover:scale-[1.02]"
+            <button onClick={() => assinar(p.id)} disabled={loading === p.id}
+              className="block w-full text-center font-bold py-3 rounded-xl transition-all hover:scale-[1.02] disabled:opacity-60"
               style={p.destaque
                 ? { background: 'linear-gradient(135deg,#6366f1,#8b5cf6)', color: '#fff' }
                 : { background: 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid rgba(99,102,241,0.2)' }}>
-              Assinar {p.nome}
-            </a>
+              {loading === p.id ? 'Redirecionando...' : `Assinar ${p.nome}`}
+            </button>
           </div>
         ))}
       </div>
