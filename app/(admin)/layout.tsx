@@ -51,10 +51,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
 function NavItem({ href, icon, label }: { href: string; icon: React.ReactNode; label: string }) {
   return (
-    <Link href={href} className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all"
-      style={{ color: 'var(--muted)' }}
-      onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(99,102,241,0.10)'; (e.currentTarget as HTMLAnchorElement).style.color = '#fff' }}
-      onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; (e.currentTarget as HTMLAnchorElement).style.color = 'var(--muted)' }}
+    <Link
+      href={href}
+      className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all text-slate-400 hover:bg-indigo-500/10 hover:text-white"
     >
       {icon} {label}
     </Link>
