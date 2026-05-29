@@ -1,8 +1,11 @@
-import { redirect } from 'next/navigation'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { LandingPage } from '@/components/landing/LandingPage'
+import type { Metadata } from 'next'
 
-export default async function Home() {
-  const session = await getServerSession(authOptions)
-  redirect(session ? '/admin/glossario' : '/login')
+export const metadata: Metadata = {
+  title: '2time SEO — Glossário SEO com IA no piloto automático',
+  description: 'Gere centenas de páginas otimizadas com IA e indexe no Google e Bing automaticamente. Mais tráfego orgânico sem escrever uma linha.',
+}
+
+export default function Home() {
+  return <LandingPage />
 }
